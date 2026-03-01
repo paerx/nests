@@ -6,6 +6,7 @@
   const elements = {
     wid: document.querySelector("[data-wid]"),
     name: document.querySelector("[data-name]"),
+    statusMini: document.querySelector("[data-status-mini]"),
     status: document.querySelector("[data-status]"),
     timer: document.querySelector("[data-timer]"),
     gkInput: document.querySelector("[data-gk-input]"),
@@ -68,6 +69,9 @@
       }
       const status = res.data.status;
       elements.status.textContent = `Status: ${status}`;
+      if (elements.statusMini) {
+        elements.statusMini.textContent = status.toUpperCase();
+      }
       if (status === "expired") {
         clearInterval(poller);
       }

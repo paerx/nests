@@ -9,24 +9,40 @@
 </head>
 <body class="page-checker" data-api-base="http://localhost:7766">
   <div class="checker-shell">
-    <header class="checker-header">
-      <div>
-        <div class="checker-title">Nests.Checker</div>
-        <div class="checker-sub">Windows: <span data-wid></span></div>
-        <div class="checker-sub">Name: <span data-name>-</span></div>
-      </div>
-      <div class="checker-timer" data-timer>--:--</div>
-    </header>
-
     <main class="checker-main">
-      <div class="checker-card">
-        <div class="checker-icon"></div>
-        <div class="checker-form">
-          <input type="password" placeholder="Global Key" data-gk-input />
-          <button class="btn primary" data-confirm>Confirm</button>
+      <div class="passport-card passport-center">
+        <div class="passport-top">
+          <div class="passport-mark">NESTS</div>
+          <div class="passport-title">Checker Authorization</div>
+          <div class="passport-chip"></div>
         </div>
-        <div class="checker-status" data-status>Waiting for confirmation</div>
-        <div class="checker-warning">Warning, please confirm that the window was initiated by yourself.</div>
+        <div class="passport-meta">
+          <div class="passport-field">
+            <div class="passport-label">WINDOW ID</div>
+            <div class="passport-value" data-wid></div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-label">ENV NAME</div>
+            <div class="passport-value" data-name>-</div>
+          </div>
+          <div class="passport-field">
+            <div class="passport-label">STATUS</div>
+            <div class="passport-value" data-status-mini>WAITING</div>
+          </div>
+        </div>
+        <div class="passport-mrz">
+          <div class="mrz-line">NESTS&lt;&lt;CHECKER&lt;&lt;WINDOW&lt;AUTH&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</div>
+          <div class="mrz-line">WID&lt;<span data-wid></span>&lt;ENV&lt;<span data-name>-</span>&lt;TTL&lt;<span data-timer>--:--</span></div>
+        </div>
+        <div class="passport-action">
+          <div class="checker-icon"></div>
+          <div class="checker-form">
+            <input type="password" placeholder="Global Key" data-gk-input />
+            <button class="btn primary" data-confirm>Confirm</button>
+          </div>
+          <div class="checker-status" data-status>Waiting for confirmation</div>
+          <div class="checker-warning">Warning, please confirm that the window was initiated by yourself.</div>
+        </div>
       </div>
     </main>
   </div>

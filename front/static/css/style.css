@@ -8,7 +8,7 @@
   --glass: rgba(24, 30, 44, 0.55);
   --glass-strong: rgba(16, 22, 34, 0.72);
   --text: #f4f6fb;
-  --muted: rgba(244, 246, 251, 0.68);
+  --muted: rgba(255, 255, 255, 0.68);
   --accent: #c7d7ff;
   --stroke: rgba(255, 255, 255, 0.18);
   --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
@@ -33,7 +33,7 @@ body {
 
 .page-checker {
   background: radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.3), rgba(13, 18, 35, 0.18)),
-    url("/static/02.JPG") center/cover no-repeat fixed;
+    url("/static/02.png") right center/cover no-repeat fixed;
 }
 
 .app-shell {
@@ -52,6 +52,7 @@ body {
   font-size: 30px;
   letter-spacing: -1px;
   font-weight: 700;
+  color: #0f0f0f;
 }
 
 .gk-status {
@@ -356,22 +357,137 @@ body {
 .checker-shell {
   min-height: 100vh;
   padding: 36px 48px;
-}
-
-.checker-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
 }
 
-.checker-title {
-  font-size: 22px;
+.passport-card {
+  width: min(620px, 78vw);
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: linear-gradient(
+          135deg,
+          rgb(72, 112, 79),
+          rgba(65, 74, 96, 0.1)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 16px 40px rgba(10, 16, 30, 0.45);
+  position: relative;
+  overflow: hidden;
+}
+
+.passport-center {
+  margin: auto;
+}
+
+.passport-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    radial-gradient(circle at 10% 20%, rgba(120, 180, 255, 0.18), transparent 45%);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.passport-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.passport-mark {
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 246, 251, 0.7);
+}
+
+.passport-title {
+  font-size: 18px;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.checker-sub {
+.passport-chip {
+  width: 42px;
+  height: 30px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(240, 200, 120, 0.9), rgba(120, 80, 30, 0.7));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.passport-meta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.passport-field {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.passport-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244, 246, 251, 0.6);
+}
+
+.passport-value {
   margin-top: 6px;
-  color: var(--muted);
+  font-size: 14px;
+  font-family: "SF Mono", "JetBrains Mono", monospace;
+  color: rgba(244, 246, 251, 0.95);
+  word-break: break-all;
+}
+
+.passport-mrz {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(8, 10, 16, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-family: "SF Mono", "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: rgba(244, 246, 251, 0.7);
+  position: relative;
+  z-index: 1;
+}
+
+.mrz-line {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+.passport-action {
+  margin-top: 16px;
+  padding: 14px 14px 16px;
+  border-radius: 12px;
+  background: rgba(6, 10, 18, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: grid;
+  gap: 12px;
+  justify-items: center;
 }
 
 .checker-timer {
@@ -403,11 +519,11 @@ body {
 }
 
 .checker-icon {
-  width: 64px;
-  height: 64px;
+  width: 72px;
+  height: 72px;
   border-radius: 18px;
-  background: radial-gradient(circle at 30% 30%, #a0e7bd, #0d3f2a);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+  background: url("/static/03.png") center/cover no-repeat;
+  box-shadow: 0 10px 22px rgba(6, 12, 22, 0.45);
 }
 
 .checker-form {
@@ -457,5 +573,27 @@ body {
 
   .detail-actions {
     flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 720px) {
+  .checker-shell {
+    padding: 24px 18px;
+  }
+
+  .passport-card {
+    width: 100%;
+  }
+
+  .passport-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .checker-form {
+    flex-direction: column;
+  }
+
+  .checker-form button {
+    width: 100%;
   }
 }

@@ -56,7 +56,36 @@ Zero‑trust local secret vault. Frontend performs encryption/decryption, backen
 - `GET /api/nests/server/windows/check?wid=xxx`
 - `GET /api/nests/server/plaintext?wid=xxx` (internal only)
 
-## SDK (Go)\n+\n+### Example\n+```go\n+package main\n+\n+import (\n+    \"fmt\"\n+    \"log\"\n+\n+    \"nests/sdk\"\n+)\n+\n+func main() {\n+    client := sdk.Init(\"http://localhost:7766\")\n+    val, err := client.GetConfig(\"dev\", \"jwt\")\n+    if err != nil {\n+        log.Fatal(err)\n+    }\n+    fmt.Println(\"jwt:\", val)\n+}\n+```\n+\n+Behavior:\n+- Prints `checker_web` URL to stdout\n+- Blocks and polls window status\n+- When ready, calls `/server/plaintext` and returns the key’s value\n+- Timeout/expiry exits with error\n+\n ## Run Locally
+## SDK (Go)
+
+### Example
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+
+    "nests/sdk"
+)
+
+func main() {
+    client := sdk.Init("http://localhost:7766")
+    val, err := client.GetConfig("dev", "jwt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println("jwt:", val)
+}
+```
+
+Behavior:
+- Prints `checker_web` URL to stdout
+- Blocks and polls window status
+- When ready, calls `/server/plaintext` and returns the key’s value
+- Timeout/expiry exits with error
+
+## Run Locally
 ## Run Locally
 
 ### Backend (API :7766)

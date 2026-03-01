@@ -1,24 +1,14 @@
 {
   "windows": [
     {
-      "wid": "HQrlcEwNZ0RRhYWr",
+      "wid": "4bjN1wbuQY81K7yd",
       "name": "dev",
-      "created_at": 1772290088,
-      "expire_at": 1772290388,
+      "created_at": 1772336063,
+      "expire_at": 1772336363,
       "used": true,
-      "retry_count": 1,
+      "retry_count": 4,
       "max_retry": 3,
-      "encrypted_temp_key": "ok"
-    },
-    {
-      "wid": "D8uajqZBhOIteigc",
-      "name": "dev",
-      "created_at": 1772290165,
-      "expire_at": 1772290465,
-      "used": false,
-      "retry_count": 2,
-      "max_retry": 3,
-      "encrypted_temp_key": "ok"
+      "encrypted_temp_key": null
     }
   ]
 }
