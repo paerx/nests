@@ -31,3 +31,22 @@
 {"action":"window_check","detail":"wid LWqrPytZ4sISp84T","ip":"::1","name":"dev","result":"locked","time":1772335639,"wid":null}
 {"action":"window_check","detail":"wid 4bjN1wbuQY81K7yd","ip":"::1","name":"dev","result":"locked","time":1772336088,"wid":null}
 {"action":"config_update","detail":"version 4 -\u003e 5","ip":"::1","name":"dev","result":"success","time":1772338807,"wid":null}
+{"action":"window_check","detail":"wid hLhVzvtF2b4r0OBQ","ip":"::1","name":"dev","result":"locked","time":1772354925,"wid":null}
+{"action":"window_ready","detail":"wid fxaZ2YRvLhfGnmB4","ip":"::1","name":"dev","result":"success","time":1772354947,"wid":null}
+{"action":"window_plaintext","detail":"wid fxaZ2YRvLhfGnmB4 call 1","ip":"::1","name":"dev","result":"success","time":1772354948,"wid":null}
+{"action":"window_check","detail":"wid 8tDy9KCIv6DhxzG3","ip":"::1","name":"dev","result":"locked","time":1772354984,"wid":null}
+{"action":"window_check","detail":"wid k3fq0VwwGE3EbJea","ip":"::1","name":"dev","result":"locked","time":1772355029,"wid":null}
+{"action":"window_check","detail":"wid YqvAsd5ORsCs5Bbp","ip":"::1","name":"dev","result":"locked","time":1772355392,"wid":null}
+{"action":"window_check","detail":"wid B2XTxjAQiWmRxWjf","ip":"::1","name":"dev","result":"locked","time":1772355658,"wid":null}
+{"action":"window_ready","detail":"wid B4ceUGlxrvKMjCQ0","ip":"::1","name":"dev","result":"success","time":1772355778,"wid":null}
+{"action":"window_ready","detail":"wid s4XB3iYBWNVKMvoC","ip":"::1","name":"dev","result":"success","time":1772356089,"wid":null}
+{"action":"window_plaintext","detail":"wid s4XB3iYBWNVKMvoC call 1","ip":"::1","name":"dev","result":"success","time":1772356090,"wid":null}
+{"action":"window_plaintext","detail":"wid s4XB3iYBWNVKMvoC call 2","ip":"127.0.0.1","name":"dev","result":"success","time":1772356126,"wid":null}
+{"action":"window_ready","detail":"wid 5Ftf3yIxvVdVlfHO","ip":"::1","name":"dev","result":"success","time":1772356774,"wid":null}
+{"action":"window_plaintext","detail":"wid 5Ftf3yIxvVdVlfHO call 1","ip":"::1","name":"dev","result":"success","time":1772356775,"wid":null}
+{"action":"window_ready","detail":"wid 1R5VLAaLDgfPPZb7","ip":"::1","name":"dev","result":"success","time":1772357988,"wid":null}
+{"action":"window_plaintext","detail":"wid 1R5VLAaLDgfPPZb7 call 1","ip":"::1","name":"dev","result":"success","time":1772357989,"wid":null}
+{"action":"window_ready","detail":"wid zb2BJRuhwLmalhNp","ip":"::1","name":"dev","result":"success","time":1772358420,"wid":null}
+{"action":"window_plaintext","detail":"wid zb2BJRuhwLmalhNp call 1","ip":"::1","name":"dev","result":"success","time":1772358421,"wid":null}
+{"action":"window_ready","detail":"wid wVlKvMbJGKvzhp8E","ip":"::1","name":"dev","result":"success","time":1772358427,"wid":null}
+{"action":"window_plaintext","detail":"wid wVlKvMbJGKvzhp8E call 1","ip":"::1","name":"dev","result":"success","time":1772358429,"wid":null}

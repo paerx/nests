@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"os"
 
 	"github.com/gin-gonic/gin"
 )
@@ -19,11 +20,23 @@ func main() {
 	r.Static("/static", "/Users/pangaichen/Desktop/shitCode/nests/front/static")
 
 	r.GET("/", func(c *gin.Context) {
-		c.HTML(200, "index.html", gin.H{})
+		apiBase := os.Getenv("NESTS_API_BASE")
+		if apiBase == "" {
+			apiBase = "http://localhost:7766"
+		}
+		c.HTML(200, "index.html", gin.H{
+			"apiBase": apiBase,
+		})
 	})
 
 	r.GET("/checker", func(c *gin.Context) {
-		c.HTML(200, "checker.html", gin.H{})
+		apiBase := os.Getenv("NESTS_API_BASE")
+		if apiBase == "" {
+			apiBase = "http://localhost:7766"
+		}
+		c.HTML(200, "checker.html", gin.H{
+			"apiBase": apiBase,
+		})
 	})
 
 	log.Printf("front listening on :7788")

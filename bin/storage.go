@@ -382,18 +382,6 @@ func (s *Store) CheckWindow(wid, ip string) (string, string, error) {
 				return "expired", "", nil
 			}
 			if w.EncryptedTempKey == nil {
-				w.RetryCount++
-				if w.RetryCount > w.MaxRetry {
-					w.Used = true
-					windows.Windows[i] = w
-					_ = writeJSONAtomic(s.windowsPath, windows)
-					delete(s.windowEnv, wid)
-					delete(s.windowCalls, wid)
-					s.appendAudit(ip, "window_check", w.Name, "locked", fmt.Sprintf("wid %s", wid))
-					return "expired", "", nil
-				}
-				windows.Windows[i] = w
-				_ = writeJSONAtomic(s.windowsPath, windows)
 				return "waiting", "", nil
 			}
 
@@ -447,24 +435,11 @@ func (s *Store) PlaintextByWindow(wid, ip string) (map[string]any, error) {
 	}
 
 	calls := s.windowCalls[wid]
-	if calls >= 2 {
-		delete(s.windowEnv, wid)
-		delete(s.windowCalls, wid)
-		return nil, errors.New("window expired")
-	}
 	calls++
 	s.windowCalls[wid] = calls
 
 	cfg, err := s.getConfigLocked(win.Name)
 	if err != nil {
-		return nil, err
-	}
-
-	if env, ok := s.windowEnv[wid]; ok && env != "" {
-		plain, err := DecryptConfigWithEnvKey(cfg, env)
-		if err != nil {
-			return nil, err
-		}
 		if calls >= 2 {
 			win.Used = true
 			windows.Windows[idx] = *win
@@ -472,6 +447,26 @@ func (s *Store) PlaintextByWindow(wid, ip string) (map[string]any, error) {
 			delete(s.windowEnv, wid)
 			delete(s.windowCalls, wid)
 		}
+		return nil, err
+	}
+
+	if env, ok := s.windowEnv[wid]; ok && env != "" {
+		plain, err := DecryptConfigWithEnvKey(cfg, env)
+		if err != nil {
+			if calls >= 2 {
+				win.Used = true
+				windows.Windows[idx] = *win
+				_ = writeJSONAtomic(s.windowsPath, windows)
+				delete(s.windowEnv, wid)
+				delete(s.windowCalls, wid)
+			}
+			return nil, err
+		}
+		win.Used = true
+		windows.Windows[idx] = *win
+		_ = writeJSONAtomic(s.windowsPath, windows)
+		delete(s.windowEnv, wid)
+		delete(s.windowCalls, wid)
 		s.appendAudit(ip, "window_plaintext", win.Name, "success", fmt.Sprintf("wid %s call %d", wid, calls))
 		return map[string]any{
 			"name":       cfg.Name,
@@ -502,7 +497,7 @@ func (s *Store) AllowIP(ip string) bool {
 }
 
 func (s *Store) AllowWindow(wid string) bool {
-	return s.limiter.Allow("wid:"+wid, 10)
+	return s.limiter.Allow("wid:"+wid, 60)
 }
 
 func (s *Store) AllowUpdate(ip string) bool {

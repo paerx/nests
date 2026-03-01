@@ -10,6 +10,8 @@ import (
 	"os"
 	"strings"
 	"time"
+	"unicode"
+	"unicode/utf8"
 )
 
 type Client struct {
@@ -60,15 +62,15 @@ type plainResp struct {
 	} `json:"data"`
 }
 
-// GetConfig waits for manual confirmation and returns the value for a given key.
+// GetConfig waits for manual confirmation and returns all key/value pairs for the env.
 // It prints checker URL to stdout and blocks until ready or timeout.
-func (c *Client) GetConfig(name, key string) (string, error) {
-	if name == "" || key == "" {
-		return "", errors.New("name and key are required")
+func (c *Client) GetConfig(name string) (map[string]string, error) {
+	if name == "" {
+		return nil, errors.New("name is required")
 	}
 	win, err := c.createWindow(name)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	fmt.Fprintf(os.Stdout, "Please open checker URL and confirm: %s\n", win.Data.CheckerWeb)
 
@@ -82,30 +84,71 @@ func (c *Client) GetConfig(name, key string) (string, error) {
 
 	for {
 		if time.Now().After(deadline) {
-			return "", errors.New("window expired or timed out")
+			return nil, errors.New("window expired or timed out")
 		}
 		status, err := c.checkWindow(win.Data.Wid)
 		if err != nil {
-			return "", err
+			return nil, err
 		}
 		switch status {
 		case "ready":
 			plain, err := c.getPlaintext(win.Data.Wid)
 			if err != nil {
-				return "", err
+				return nil, err
 			}
+			out := make(map[string]string, len(plain.Data.Datas))
 			for _, kv := range plain.Data.Datas {
-				if kv.Key == key {
-					return kv.Value, nil
-				}
+				out[kv.Key] = kv.Value
 			}
-			return "", fmt.Errorf("key not found: %s", key)
+			return out, nil
 		case "expired":
-			return "", errors.New("window expired")
+			return nil, errors.New("window expired")
 		default:
 			time.Sleep(c.PollInterval)
 		}
 	}
+}
+
+// Recheck returns true if the map looks like valid plaintext (not garbled).
+func (c *Client) Recheck(values map[string]string) bool {
+	if len(values) == 0 {
+		return false
+	}
+	bad := 0
+	for k, v := range values {
+		if !looksReadable(k) || !looksReadable(v) {
+			bad++
+		}
+	}
+	return bad == 0
+}
+
+func looksReadable(s string) bool {
+	if s == "" {
+		return false
+	}
+	if !utf8.ValidString(s) {
+		return false
+	}
+	var printable, total int
+	for _, r := range s {
+		total++
+		if r == utf8.RuneError {
+			return false
+		}
+		if r == '\n' || r == '\r' || r == '\t' {
+			printable++
+			continue
+		}
+		if unicode.IsPrint(r) {
+			printable++
+		}
+	}
+	if total == 0 {
+		return false
+	}
+	ratio := float64(printable) / float64(total)
+	return ratio >= 0.85
 }
 
 func (c *Client) createWindow(name string) (*windowResp, error) {

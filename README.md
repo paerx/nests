@@ -1,7 +1,8 @@
 # Nests
 
 Zero‑trust local secret vault. Frontend performs encryption/decryption, backend only stores encrypted payloads and handles window workflow.
-
+![img.png](img.png)
+![img_1.png](img_1.png)
 ## Architecture Overview
 
 - Frontend (browser): crypto core (HKDF + SM4 + HMAC‑SM3)
@@ -96,8 +97,9 @@ go run .
 
 ### Frontend (UI :7788)
 ```bash
-cd nests
-go run ./cmd/front
+cd /Users/pangaichen/Desktop/shitCode/nests
+# configure backend API base (optional)
+NESTS_API_BASE=http://localhost:7766 go run ./cmd/front
 ```
 
 ## Configuration
@@ -110,6 +112,7 @@ Backend:
 Frontend:
 - Templates in `front/templates`
 - Static assets in `front/static`
+- `NESTS_API_BASE` (default `http://localhost:7766`)
 
 ## Container Notes
 
