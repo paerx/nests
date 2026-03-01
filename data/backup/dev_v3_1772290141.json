@@ -1,0 +1,32 @@
+{
+  "id": "48ff1b03de8bf09c295aef593a81b0b6",
+  "name": "dev",
+  "version": 3,
+  "kdf_salt": "uxg2eCCwvlPlEF8DxY0XDw==",
+  "sign": "0502e1277b14f66db858fe84c6f86b25ce51b6c7f1fe77c59db25b0ac9bf97ba",
+  "created_at": 1772286408,
+  "updated_at": 1772287802,
+  "e_datas": [
+    {
+      "id": "4eca75e6b1dbb5b85c1b2644",
+      "e_key": "m2dEmejiJg9wrAX+KMOs12LTXyvIIaGqft0mtsZIj3c=",
+      "e_value": "KE8e4d3voQSHyF9j62PZT/37q/CPd4mPTWmJPh6DgtJIn0SOZS0yAKL9+r42cL9+",
+      "created_at": 1772286408,
+      "updated_at": 1772287802
+    },
+    {
+      "id": "82b91a0a05bfbd7c311a2c48",
+      "e_key": "WRneRv3Zaje7xeWBnS7P7d3pUI6v+P0RbqNmUYIg0fQ=",
+      "e_value": "qiAmGYQukRw78JuEje9Mvd0IITHsOObQ+6cKsPDB8Jk=",
+      "created_at": 1772286677,
+      "updated_at": 1772287802
+    },
+    {
+      "id": "6d76001f86cb9492f3f4c13c",
+      "e_key": "Z27ZFm5ZzVa7J1AsDC3pEiPNK3pCFg/tRGTuhaqaDwk=",
+      "e_value": "S2LlXZGhjKLXU11+EUl8TVDDBHzyPziphDPd6RNioGB3nCTZYK0l5bOhETf4Y4xKEpdARj0GETDI5MTSw6nlCA==",
+      "created_at": 1772287802,
+      "updated_at": 1772287802
+    }
+  ]
+}

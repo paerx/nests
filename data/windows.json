@@ -1,0 +1,24 @@
+{
+  "windows": [
+    {
+      "wid": "HQrlcEwNZ0RRhYWr",
+      "name": "dev",
+      "created_at": 1772290088,
+      "expire_at": 1772290388,
+      "used": true,
+      "retry_count": 1,
+      "max_retry": 3,
+      "encrypted_temp_key": "ok"
+    },
+    {
+      "wid": "D8uajqZBhOIteigc",
+      "name": "dev",
+      "created_at": 1772290165,
+      "expire_at": 1772290465,
+      "used": false,
+      "retry_count": 2,
+      "max_retry": 3,
+      "encrypted_temp_key": "ok"
+    }
+  ]
+}

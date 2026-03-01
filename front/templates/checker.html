@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nests Checker</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body class="page-checker" data-api-base="http://localhost:7766">
+  <div class="checker-shell">
+    <header class="checker-header">
+      <div>
+        <div class="checker-title">Nests.Checker</div>
+        <div class="checker-sub">Windows: <span data-wid></span></div>
+        <div class="checker-sub">Name: <span data-name>-</span></div>
+      </div>
+      <div class="checker-timer" data-timer>--:--</div>
+    </header>
+
+    <main class="checker-main">
+      <div class="checker-card">
+        <div class="checker-icon"></div>
+        <div class="checker-form">
+          <input type="password" placeholder="Global Key" data-gk-input />
+          <button class="btn primary" data-confirm>Confirm</button>
+        </div>
+        <div class="checker-status" data-status>Waiting for confirmation</div>
+        <div class="checker-warning">Warning, please confirm that the window was initiated by yourself.</div>
+      </div>
+    </main>
+  </div>
+
+  <div class="toast" data-toast></div>
+
+  <script src="/static/js/crypto.js"></script>
+  <script src="/static/js/checker.js"></script>
+</body>
+</html>

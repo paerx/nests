@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "schema_version": 1,
+    "created_at": 1772279900,
+    "updated_at": 1772290141
+  },
+  "configs": [
+    {
+      "id": "e1043990c89399d2531459da89e32bc4",
+      "name": "prod",
+      "version": 8,
+      "kdf_salt": "optional",
+      "sign": "7c32ac777b224d8f260c4f462f40c6b1530fb06adb247910d1f2e9f9f5a3fcd2",
+      "created_at": 1772280390,
+      "updated_at": 1772286445,
+      "e_datas": [
+        {
+          "id": "4eca75e6b1dbb5b85c1b2644",
+          "e_key": "8BMwCMZaGQ0lJFeehRXGf0gOrWA5C3aNZnJjjtL5Tlw=",
+          "e_value": "JspngERfD1GMYGfTThVhb0IkUaQe0sagZvncpH9jogyo4VLoGabP13KGOPRcZ4tV",
+          "created_at": 1772286445,
+          "updated_at": 1772286445
+        },
+        {
+          "id": "c93af1a309d931bb24f23fa1",
+          "e_key": "0D61BxG3qlibMmQuCJj3/vNUQv65c4LJj3E2g3K6uCQ=",
+          "e_value": "SfKboWIMPR7nvKKJar5Nxu5vQOe2mLh9P+lrT8q2iEb/GAvh2Vig7+adn39ItPBE",
+          "created_at": 1772286445,
+          "updated_at": 1772286445
+        }
+      ]
+    },
+    {
+      "id": "48ff1b03de8bf09c295aef593a81b0b6",
+      "name": "dev",
+      "version": 4,
+      "kdf_salt": "uxg2eCCwvlPlEF8DxY0XDw==",
+      "sign": "ddbbb46c9d9783f0ad8eaeee9803c55435e882b8625b3bc31d0d076287bf5327",
+      "created_at": 1772286408,
+      "updated_at": 1772290141,
+      "e_datas": [
+        {
+          "id": "4eca75e6b1dbb5b85c1b2644",
+          "e_key": "nm44aAbgWablVE95gWno8Bj6Cl0Y303ECXf1zUQL0Q8=",
+          "e_value": "5i6EZYCMzRU7bvTY3jXNIVX3p17zZT/S30o7VINDdMkySZXAp5Hb17xPm/D1VdRB",
+          "created_at": 1772286408,
+          "updated_at": 1772290141
+        },
+        {
+          "id": "82b91a0a05bfbd7c311a2c48",
+          "e_key": "Swh7L3QHrpk1sDu0yI49Nh19Sdkphm3TJlt2FCh0KNA=",
+          "e_value": "dtSOvkCSdxxEGlV2hUT019heWURqqs3VoskFoPAElXw=",
+          "created_at": 1772286677,
+          "updated_at": 1772290141
+        },
+        {
+          "id": "6d76001f86cb9492f3f4c13c",
+          "e_key": "tEfLFd4r7fuOBZdU3TweSq1gKKoDxQnN1C8GcZFenhk=",
+          "e_value": "bspd4qnHZ6EFvbTAev7KwPKS39fVhV71suVebmK8t2ullu1wAI3um+Cm7ofBfTnxnNHXdwSKgCHuHh1hE+Y7fw==",
+          "created_at": 1772287802,
+          "updated_at": 1772290141
+        },
+        {
+          "id": "8192fd80448782dc6f92b9ca",
+          "e_key": "LjTUXd1TEdus53vuIJEmPs64stMm1xU+QsN7jjqmSlU=",
+          "e_value": "GdLn9nguzyk9U4qhH/CnrXWZrikquwkYQWF6VpfOxntk/BRS6kb5cWQ4SwlvkHLgpY06+W9SxlnXbTAmaqRx+3xOp10lHrpQ9zwc2vxEZf4tX1uDQx2lYdytX5jRdZG8uKWe+1BGTgodPFTQXSE/dw==",
+          "created_at": 1772290141,
+          "updated_at": 1772290141
+        }
+      ]
+    }
+  ]
+}

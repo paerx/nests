@@ -1,0 +1,18 @@
+{
+  "id": "48ff1b03de8bf09c295aef593a81b0b6",
+  "name": "dev",
+  "version": 1,
+  "kdf_salt": "uxg2eCCwvlPlEF8DxY0XDw==",
+  "sign": "00a85951f2f7ad9ea7be9e5ad4d7c44e7032cd506f89c84884ac85b25c96db0f",
+  "created_at": 1772286408,
+  "updated_at": 1772286408,
+  "e_datas": [
+    {
+      "id": "4eca75e6b1dbb5b85c1b2644",
+      "e_key": "52Vy4O3ZNZMR+b2ADunjZXxSMvo/me9IB2P9xSe9igM=",
+      "e_value": "xR0FCGB6yB5jHIajzOYwHUfG/R+JWJ6vsR8Cj6j6iVrxr/UPizQPNQ6RbzIiL03I",
+      "created_at": 1772286408,
+      "updated_at": 1772286408
+    }
+  ]
+}

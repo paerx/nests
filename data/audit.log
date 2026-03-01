@@ -1,0 +1,30 @@
+{"action":"config_add","detail":"version 0 -\u003e 1","ip":"127.0.0.1","name":"prod","result":"success","time":1772280390,"wid":null}
+{"action":"config_add","detail":"version -\u003e 2","ip":"127.0.0.1","name":"prod","result":"success","time":1772280662,"wid":null}
+{"action":"config_update","detail":"version 2 -\u003e 3","ip":"127.0.0.1","name":"prod","result":"success","time":1772280967,"wid":null}
+{"action":"config_update","detail":"version 3 -\u003e 4","ip":"127.0.0.1","name":"prod","result":"success","time":1772281023,"wid":null}
+{"action":"config_update","detail":"version 4 -\u003e 5","ip":"127.0.0.1","name":"prod","result":"success","time":1772281152,"wid":null}
+{"action":"config_update","detail":"version 5 -\u003e 6","ip":"127.0.0.1","name":"prod","result":"success","time":1772281178,"wid":null}
+{"action":"config_update","detail":"version 6 -\u003e 7","ip":"127.0.0.1","name":"prod","result":"success","time":1772281190,"wid":null}
+{"action":"config_add","detail":"version 0 -\u003e 1","ip":"::1","name":"dev","result":"success","time":1772286408,"wid":null}
+{"action":"config_update","detail":"version 7 -\u003e 8","ip":"::1","name":"prod","result":"success","time":1772286445,"wid":null}
+{"action":"config_update","detail":"version 1 -\u003e 2","ip":"::1","name":"dev","result":"success","time":1772286677,"wid":null}
+{"action":"window_ready","detail":"wid hq7kHNwAxzx08CiB","ip":"::1","name":"dev","result":"success","time":1772287038,"wid":null}
+{"action":"window_check","detail":"wid hq7kHNwAxzx08CiB","ip":"::1","name":"dev","result":"locked","time":1772287038,"wid":null}
+{"action":"config_update","detail":"version 2 -\u003e 3","ip":"::1","name":"dev","result":"success","time":1772287802,"wid":null}
+{"action":"window_ready","detail":"wid QYnwOXZ1KgipwLZy","ip":"::1","name":"dev","result":"success","time":1772287863,"wid":null}
+{"action":"window_check","detail":"wid QYnwOXZ1KgipwLZy","ip":"::1","name":"dev","result":"locked","time":1772287863,"wid":null}
+{"action":"window_ready","detail":"wid 92qXJBtsF4AitRXa","ip":"::1","name":"dev","result":"success","time":1772288170,"wid":null}
+{"action":"window_ready","detail":"wid 92qXJBtsF4AitRXa","ip":"::1","name":"dev","result":"success","time":1772288191,"wid":null}
+{"action":"window_ready","detail":"wid awksWBhVzQgsadJq","ip":"::1","name":"dev","result":"success","time":1772288607,"wid":null}
+{"action":"window_ready","detail":"wid C9RyZIr2xuyiIuSP","ip":"::1","name":"dev","result":"success","time":1772288962,"wid":null}
+{"action":"window_ready","detail":"wid Gvg6aophJzYfhOZN","ip":"::1","name":"dev","result":"success","time":1772289492,"wid":null}
+{"action":"window_check","detail":"wid Gvg6aophJzYfhOZN","ip":"::1","name":"dev","result":"success","time":1772289607,"wid":null}
+{"action":"window_ready","detail":"wid 8G1n6lgTHjXzQSLy","ip":"::1","name":"dev","result":"success","time":1772289631,"wid":null}
+{"action":"window_plaintext","detail":"wid 8G1n6lgTHjXzQSLy call 1","ip":"127.0.0.1","name":"dev","result":"success","time":1772289639,"wid":null}
+{"action":"window_plaintext","detail":"wid 8G1n6lgTHjXzQSLy call 2","ip":"127.0.0.1","name":"dev","result":"success","time":1772289664,"wid":null}
+{"action":"window_ready","detail":"wid HQrlcEwNZ0RRhYWr","ip":"::1","name":"dev","result":"success","time":1772290097,"wid":null}
+{"action":"window_plaintext","detail":"wid HQrlcEwNZ0RRhYWr call 1","ip":"127.0.0.1","name":"dev","result":"success","time":1772290106,"wid":null}
+{"action":"window_plaintext","detail":"wid HQrlcEwNZ0RRhYWr call 2","ip":"127.0.0.1","name":"dev","result":"success","time":1772290108,"wid":null}
+{"action":"config_update","detail":"version 3 -\u003e 4","ip":"::1","name":"dev","result":"success","time":1772290141,"wid":null}
+{"action":"window_ready","detail":"wid D8uajqZBhOIteigc","ip":"::1","name":"dev","result":"success","time":1772290178,"wid":null}
+{"action":"window_plaintext","detail":"wid D8uajqZBhOIteigc call 1","ip":"127.0.0.1","name":"dev","result":"success","time":1772290187,"wid":null}
