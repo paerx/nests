@@ -30,3 +30,4 @@
 {"action":"window_plaintext","detail":"wid D8uajqZBhOIteigc call 1","ip":"127.0.0.1","name":"dev","result":"success","time":1772290187,"wid":null}
 {"action":"window_check","detail":"wid LWqrPytZ4sISp84T","ip":"::1","name":"dev","result":"locked","time":1772335639,"wid":null}
 {"action":"window_check","detail":"wid 4bjN1wbuQY81K7yd","ip":"::1","name":"dev","result":"locked","time":1772336088,"wid":null}
+{"action":"config_update","detail":"version 4 -\u003e 5","ip":"::1","name":"dev","result":"success","time":1772338807,"wid":null}

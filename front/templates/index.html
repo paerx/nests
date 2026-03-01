@@ -8,96 +8,99 @@
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body class="page-index" data-api-base="http://localhost:7766">
-  <div class="app-shell">
-    <header class="topbar">
+<div class="app-shell">
+  <header class="topbar">
+    <div class="logo-block">
       <div class="logo">NESTS.</div>
-      <button class="gk-status" type="button" data-gk-edit>
-        <span class="gk-indicator" data-gk-indicator></span>
-        <span class="gk-label">Global Key</span>
-        <span class="gk-action">Edit</span>
+      <div class="logo-sub">Zero‑trust local secret vault. Frontend performs encryption/decryption, backend only stores encrypted payloads and handles window workflow.</div>
+    </div>
+    <button class="gk-status" type="button" data-gk-edit>
+      <span class="gk-indicator" data-gk-indicator></span>
+      <span class="gk-label">Global Key</span>
+      <span class="gk-action">Edit</span>
+    </button>
+  </header>
+
+  <main class="content">
+    <section class="search-row">
+      <input class="search-input" type="text" placeholder="e.g: name" data-search />
+      <button class="search-btn" data-search-btn aria-label="Search">
+        <span class="search-icon"></span>
       </button>
-    </header>
+      <button class="btn primary" data-open-create>Create Environment</button>
+    </section>
 
-    <main class="content">
-      <section class="search-row">
-        <input class="search-input" type="text" placeholder="e.g: name" data-search />
-        <button class="search-btn" data-search-btn aria-label="Search">
-          <span class="search-icon"></span>
-        </button>
-        <button class="btn primary" data-open-create>Create Environment</button>
-      </section>
-
-      <section class="panel table-panel">
-        <div class="table-head">
-          <div class="col name">Name</div>
-          <div class="col version">Version</div>
-          <div class="col updated">Updated</div>
-          <div class="col action">Action</div>
-        </div>
-        <div class="table-body" data-env-list>
-          <div class="empty">No environments yet.</div>
-        </div>
-      </section>
-
-      <section class="panel detail-panel">
-        <div class="detail-header">
-          <div>
-            <div class="detail-title" data-detail-title>Select an environment</div>
-            <div class="detail-sub" data-detail-sub></div>
-          </div>
-          <div class="detail-actions">
-            <button class="btn ghost" data-refresh>Refresh</button>
-            <button class="btn ghost" data-add-entry>Add Entry</button>
-            <button class="btn primary" data-save>Save</button>
-          </div>
-        </div>
-        <div class="detail-table" data-detail-table>
-          <div class="detail-empty">No data loaded.</div>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <div class="modal" data-modal-gk>
-    <div class="modal-card">
-      <div class="modal-title">Hi. Please enter the global key</div>
-      <div class="modal-body">
-        <input type="password" placeholder="Global Key" data-gk-input />
-        <button class="btn primary" data-gk-submit>Unlock</button>
+    <section class="panel table-panel">
+      <div class="table-head">
+        <div class="col name">Name</div>
+        <div class="col version">Version</div>
+        <div class="col updated">Updated</div>
+        <div class="col action">Action</div>
       </div>
-      <div class="modal-hint">Minimum 16 chars, upper/lower/number/special.</div>
+      <div class="table-body" data-env-list>
+        <div class="empty">No environments yet.</div>
+      </div>
+    </section>
+
+    <section class="panel detail-panel">
+      <div class="detail-header">
+        <div>
+          <div class="detail-title" data-detail-title>Select an environment</div>
+          <div class="detail-sub" data-detail-sub></div>
+        </div>
+        <div class="detail-actions">
+          <button class="btn ghost" data-refresh>Refresh</button>
+          <button class="btn ghost" data-add-entry>Add Entry</button>
+          <button class="btn primary" data-save>Save</button>
+        </div>
+      </div>
+      <div class="detail-table" data-detail-table>
+        <div class="detail-empty">No data loaded.</div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="modal" data-modal-gk>
+  <div class="modal-card">
+    <div class="modal-title">Hi. Please enter the global key</div>
+    <div class="modal-body">
+      <input type="password" placeholder="Global Key" data-gk-input />
+      <button class="btn primary" data-gk-submit>Unlock</button>
+    </div>
+    <div class="modal-hint">Minimum 16 chars, upper/lower/number/special.</div>
+  </div>
+</div>
+
+<div class="modal" data-modal-create>
+  <div class="modal-card">
+    <div class="modal-title">Create Environment</div>
+    <div class="modal-body">
+      <input type="text" placeholder="Environment name" data-create-name />
+      <input type="text" placeholder="Key" data-create-key />
+      <input type="text" placeholder="Value" data-create-value />
+      <button class="btn primary" data-create-submit>Create</button>
+      <button class="btn ghost" data-create-cancel>Cancel</button>
+    </div>
+    <div class="modal-hint">Creates the first entry and generates kdf_salt.</div>
+  </div>
+</div>
+
+<div class="modal" data-modal-entry>
+  <div class="modal-card">
+    <div class="modal-title">Add Entry</div>
+    <div class="modal-body">
+      <input type="text" placeholder="Key" data-entry-key />
+      <input type="text" placeholder="Value" data-entry-value />
+      <button class="btn primary" data-entry-submit>Add</button>
+      <button class="btn ghost" data-entry-cancel>Cancel</button>
     </div>
   </div>
+</div>
 
-  <div class="modal" data-modal-create>
-    <div class="modal-card">
-      <div class="modal-title">Create Environment</div>
-      <div class="modal-body">
-        <input type="text" placeholder="Environment name" data-create-name />
-        <input type="text" placeholder="Key" data-create-key />
-        <input type="text" placeholder="Value" data-create-value />
-        <button class="btn primary" data-create-submit>Create</button>
-        <button class="btn ghost" data-create-cancel>Cancel</button>
-      </div>
-      <div class="modal-hint">Creates the first entry and generates kdf_salt.</div>
-    </div>
-  </div>
+<div class="toast" data-toast></div>
 
-  <div class="modal" data-modal-entry>
-    <div class="modal-card">
-      <div class="modal-title">Add Entry</div>
-      <div class="modal-body">
-        <input type="text" placeholder="Key" data-entry-key />
-        <input type="text" placeholder="Value" data-entry-value />
-        <button class="btn primary" data-entry-submit>Add</button>
-        <button class="btn ghost" data-entry-cancel>Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" data-toast></div>
-
-  <script src="/static/js/crypto.js"></script>
-  <script src="/static/js/main.js"></script>
+<script src="/static/js/crypto.js"></script>
+<script src="/static/js/main.js"></script>
 </body>
 </html>
