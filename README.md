@@ -118,6 +118,8 @@ Frontend:
 
 If running in Docker:
 
+Use Dockerfile
+
 1. **File paths**
    - `NESTS_DATA_DIR` must point to a writable volume (e.g. `/data`).
 

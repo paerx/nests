@@ -16,8 +16,15 @@ func main() {
 		c.Next()
 	})
 
-	r.LoadHTMLGlob("/Users/pangaichen/Desktop/shitCode/nests/front/templates/*")
-	r.Static("/static", "/Users/pangaichen/Desktop/shitCode/nests/front/static")
+	frontDir := os.Getenv("NESTS_FRONT_DIR")
+	if frontDir == "" {
+		frontDir = "/app/front"
+	}
+	if _, err := os.Stat(frontDir); err != nil {
+		frontDir = "./front"
+	}
+	r.LoadHTMLGlob(frontDir + "/templates/*")
+	r.Static("/static", frontDir+"/static")
 
 	r.GET("/", func(c *gin.Context) {
 		apiBase := os.Getenv("NESTS_API_BASE")
