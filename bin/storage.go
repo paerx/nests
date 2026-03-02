@@ -89,6 +89,7 @@ type Config struct {
 	Version   int     `json:"version"`
 	KdfSalt   string  `json:"kdf_salt"`
 	Sign      string  `json:"sign"`
+	OtpSecret string  `json:"otp_secret,omitempty"`
 	CreatedAt int64   `json:"created_at"`
 	UpdatedAt int64   `json:"updated_at"`
 	EDatas    []EData `json:"e_datas"`
@@ -195,13 +196,13 @@ func (s *Store) UpdateConfig(name, kdfSalt, sign string, eDatas []EData, ip stri
 	return Config{}, fmt.Errorf("config not found")
 }
 
-func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Config, error) {
+func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Config, *OTPInfo, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
 	cfgs, err := s.loadConfigs()
 	if err != nil {
-		return Config{}, err
+		return Config{}, nil, err
 	}
 
 	now := time.Now().Unix()
@@ -211,7 +212,7 @@ func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Co
 		}
 
 		if err := s.backupConfig(cfg); err != nil {
-			return Config{}, err
+			return Config{}, nil, err
 		}
 
 		cfg.Version++
@@ -229,18 +230,23 @@ func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Co
 		cfgs.Configs[i] = cfg
 		cfgs.Meta.UpdatedAt = now
 		if err := writeJSONAtomic(s.configsPath, cfgs); err != nil {
-			return Config{}, err
+			return Config{}, nil, err
 		}
 		s.appendAudit(ip, "config_add", name, "success", fmt.Sprintf("version -> %d", cfg.Version))
-		return cfg, nil
+		return cfg, nil, nil
 	}
 
 	if kdfSalt == "" {
-		return Config{}, errors.New("kdf_salt is required for new config")
+		return Config{}, nil, errors.New("kdf_salt is required for new config")
 	}
 
 	if cfgs.Meta.CreatedAt == 0 {
 		cfgs.Meta.CreatedAt = now
+	}
+
+	otpInfo, err := generateOTP(name)
+	if err != nil {
+		return Config{}, nil, err
 	}
 
 	newCfg := Config{
@@ -249,6 +255,7 @@ func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Co
 		Version:   1,
 		KdfSalt:   kdfSalt,
 		Sign:      sign,
+		OtpSecret: otpInfo.Secret,
 		CreatedAt: now,
 		UpdatedAt: now,
 		EDatas: []EData{{
@@ -262,10 +269,10 @@ func (s *Store) AddConfigEntry(name, eKey, eValue, sign, kdfSalt, ip string) (Co
 	cfgs.Configs = append(cfgs.Configs, newCfg)
 	cfgs.Meta.UpdatedAt = now
 	if err := writeJSONAtomic(s.configsPath, cfgs); err != nil {
-		return Config{}, err
+		return Config{}, nil, err
 	}
 	s.appendAudit(ip, "config_add", name, "success", "version 0 -> 1")
-	return newCfg, nil
+	return newCfg, otpInfo, nil
 }
 
 func (s *Store) CreateWindow(name, ip string) (Window, error) {
@@ -502,6 +509,10 @@ func (s *Store) AllowWindow(wid string) bool {
 
 func (s *Store) AllowUpdate(ip string) bool {
 	return s.limiter.Allow("update:"+ip, 65)
+}
+
+func (s *Store) AllowOTP(ip string) bool {
+	return s.limiter.Allow("otp:"+ip, 10)
 }
 
 func (s *Store) loadConfigs() (ConfigFile, error) {

@@ -30,9 +30,37 @@
     entrySubmit: document.querySelector("[data-entry-submit]"),
     entryCancel: document.querySelector("[data-entry-cancel]"),
     toast: document.querySelector("[data-toast]"),
+    modalOtp: document.querySelector("[data-modal-otp]"),
+    otpQr: document.querySelector("[data-otp-qr]"),
+    otpLabel: document.querySelector("[data-otp-label]"),
+    otpClose: document.querySelector("[data-otp-close]"),
   };
 
   let idleTimer = null;
+  const GK_LOCK_KEY = "gk_lock_until";
+  const GK_FAIL_KEY = "gk_fail_count";
+  const GK_FAIL_TS = "gk_fail_ts";
+
+  function isLocked() {
+    const until = Number(localStorage.getItem(GK_LOCK_KEY) || 0);
+    return Date.now() < until;
+  }
+
+  function recordFailure() {
+    const now = Date.now();
+    const last = Number(localStorage.getItem(GK_FAIL_TS) || 0);
+    let count = Number(localStorage.getItem(GK_FAIL_KEY) || 0);
+    if (now - last > 10 * 60 * 1000) {
+      count = 0;
+    }
+    count += 1;
+    localStorage.setItem(GK_FAIL_KEY, String(count));
+    localStorage.setItem(GK_FAIL_TS, String(now));
+    if (count >= 5) {
+      const lockUntil = now + 10 * 60 * 1000;
+      localStorage.setItem(GK_LOCK_KEY, String(lockUntil));
+    }
+  }
 
   function showToast(message) {
     elements.toast.textContent = message;
@@ -72,6 +100,10 @@
   }
 
   function setGlobalKey(value) {
+    if (isLocked()) {
+      showToast("GlobalKey locked. Try later.");
+      return;
+    }
     state.globalKey = value;
     elements.gkIndicator.classList.add("active");
     resetIdleTimer();
@@ -183,6 +215,7 @@
     const sign = NestsCrypto.signEDatas(eDatas, envKey);
     if (sign !== cfg.sign) {
       showToast("Signature mismatch");
+      recordFailure();
       return;
     }
     const decrypted = eDatas.map((e) => ({
@@ -286,6 +319,11 @@
         elements.createKey.value = "";
         elements.createValue.value = "";
         showToast("Created");
+        if (res.data && res.data.otp_qr) {
+          elements.otpQr.src = `data:image/png;base64,${res.data.otp_qr}`;
+          elements.otpLabel.textContent = `Nests:${name}`;
+          elements.modalOtp.classList.add("active");
+        }
         loadList();
       });
     });
@@ -307,8 +345,13 @@
 
   elements.gkSubmit.addEventListener("click", () => {
     const val = elements.gkInput.value.trim();
+    if (isLocked()) {
+      showToast("GlobalKey locked. Try later.");
+      return;
+    }
     if (!isValidGlobalKey(val)) {
       showToast("GlobalKey format invalid");
+      recordFailure();
       return;
     }
     setGlobalKey(val);
@@ -350,6 +393,10 @@
 
   document.querySelector("[data-save]").addEventListener("click", saveCurrent);
   document.querySelector("[data-refresh]").addEventListener("click", loadList);
+
+  elements.otpClose.addEventListener("click", () => {
+    elements.modalOtp.classList.remove("active");
+  });
 
   elements.searchInput.addEventListener("input", loadList);
 

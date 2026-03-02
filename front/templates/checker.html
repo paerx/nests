@@ -36,9 +36,13 @@
         </div>
         <div class="passport-action">
           <div class="checker-icon"></div>
+          <div class="checker-otp">
+            <input type="text" placeholder="Google Auth Code" data-otp-input />
+            <button class="btn ghost" data-otp-verify>Verify</button>
+          </div>
           <div class="checker-form">
-            <input type="password" placeholder="Global Key" data-gk-input />
-            <button class="btn primary" data-confirm>Confirm</button>
+            <input type="password" placeholder="Global Key" data-gk-input disabled />
+            <button class="btn primary" data-confirm disabled>Confirm</button>
           </div>
           <div class="checker-status" data-status>Waiting for confirmation</div>
           <div class="checker-warning">Warning, please confirm that the window was initiated by yourself.</div>

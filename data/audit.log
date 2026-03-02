@@ -50,3 +50,9 @@
 {"action":"window_plaintext","detail":"wid zb2BJRuhwLmalhNp call 1","ip":"::1","name":"dev","result":"success","time":1772358421,"wid":null}
 {"action":"window_ready","detail":"wid wVlKvMbJGKvzhp8E","ip":"::1","name":"dev","result":"success","time":1772358427,"wid":null}
 {"action":"window_plaintext","detail":"wid wVlKvMbJGKvzhp8E call 1","ip":"::1","name":"dev","result":"success","time":1772358429,"wid":null}
+{"action":"config_add","detail":"version 0 -\u003e 1","ip":"::1","name":"test","result":"success","time":1772425264,"wid":null}
+{"action":"window_ready","detail":"wid UJfUz9OifVVTuQwZ","ip":"::1","name":"test","result":"success","time":1772425352,"wid":null}
+{"action":"window_plaintext","detail":"wid UJfUz9OifVVTuQwZ call 1","ip":"::1","name":"test","result":"success","time":1772425354,"wid":null}
+{"action":"window_ready","detail":"wid fCeOBeTeIpEGM3hP","ip":"::1","name":"test","result":"success","time":1772425383,"wid":null}
+{"action":"window_plaintext","detail":"wid fCeOBeTeIpEGM3hP call 1","ip":"::1","name":"test","result":"success","time":1772425385,"wid":null}
+{"action":"config_add","detail":"version 0 -\u003e 1","ip":"::1","name":"test02","result":"success","time":1772425401,"wid":null}

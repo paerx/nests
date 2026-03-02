@@ -23,6 +23,7 @@ Zero‑trust local secret vault. Frontend performs encryption/decryption, backen
 5. Frontend sends encrypted data to backend:
    - `POST /api/nests/config/add` (create)
    - `POST /api/nests/config/update` (update)
+6. On create, backend generates Google Authenticator QR (label: `Nests:name`).
 
 ### 2) Backend Storage
 - Backend writes encrypted data to `data/configs.json`.
@@ -35,9 +36,10 @@ Zero‑trust local secret vault. Frontend performs encryption/decryption, backen
    - `GET /api/nests/server/get?name=xxx`
 2. Backend returns `wid` + `checker_web`.
 3. User opens `checker_web` and inputs `globalKey`.
-4. Frontend fetches `kdf_salt`, derives `env_key`, then submits:
+4. Frontend verifies Google Authenticator code (OTP) for this env.
+5. Frontend fetches `kdf_salt`, derives `env_key`, then submits:
    - `POST /api/nests/server/windows` with `env_key` (no globalKey).
-5. Backend stores `env_key` **in memory only** for this window.
+6. Backend stores `env_key` **in memory only** for this window.
 
 ### 4) Plaintext Extraction (Internal Only)
 1. Internal service calls:
@@ -52,6 +54,7 @@ Zero‑trust local secret vault. Frontend performs encryption/decryption, backen
 - `GET /api/nests/config/get?name=xxx`
 - `POST /api/nests/config/update`
 - `POST /api/nests/config/add`
+- `POST /api/nests/config/otp/verify`
 - `GET /api/nests/server/get?name=xxx`
 - `POST /api/nests/server/windows` (env_key confirmation)
 - `GET /api/nests/server/windows/check?wid=xxx`
@@ -108,11 +111,13 @@ Backend:
 - `NESTS_PORT` (default `7766`)
 - `NESTS_DATA_DIR` (default `./nests/data`)
 - `NESTS_CHECKER_WEB_BASE` (default `http://localhost:7788/checker`)
+- `NESTS_FORCE_HTTPS` (set `1` to force HTTPS + HSTS)
 
 Frontend:
 - Templates in `front/templates`
 - Static assets in `front/static`
 - `NESTS_API_BASE` (default `http://localhost:7766`)
+- `NESTS_FORCE_HTTPS` (set `1` to force HTTPS + HSTS)
 
 ## Container Notes
 
@@ -142,4 +147,6 @@ Use Dockerfile
 
 - Backend never receives or stores `globalKey`.
 - Plaintext API is limited to internal networks and max 2 reads per window.
+- Google Authenticator OTP is required before entering globalKey in checker.
+- CSP forbids inline scripts; HSTS is enabled (effective only on HTTPS).
 - If you need stricter controls (token, mTLS, allowlist), add them at the gateway.

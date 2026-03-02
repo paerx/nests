@@ -11,11 +11,39 @@
     timer: document.querySelector("[data-timer]"),
     gkInput: document.querySelector("[data-gk-input]"),
     confirm: document.querySelector("[data-confirm]"),
+    otpInput: document.querySelector("[data-otp-input]"),
+    otpVerify: document.querySelector("[data-otp-verify]"),
     toast: document.querySelector("[data-toast]"),
   };
 
   let expireAt = null;
   let poller = null;
+  let otpVerified = false;
+
+  const GK_LOCK_KEY = "gk_lock_until";
+  const GK_FAIL_KEY = "gk_fail_count";
+  const GK_FAIL_TS = "gk_fail_ts";
+
+  function isLocked() {
+    const until = Number(localStorage.getItem(GK_LOCK_KEY) || 0);
+    return Date.now() < until;
+  }
+
+  function recordFailure() {
+    const now = Date.now();
+    const last = Number(localStorage.getItem(GK_FAIL_TS) || 0);
+    let count = Number(localStorage.getItem(GK_FAIL_KEY) || 0);
+    if (now - last > 10 * 60 * 1000) {
+      count = 0;
+    }
+    count += 1;
+    localStorage.setItem(GK_FAIL_KEY, String(count));
+    localStorage.setItem(GK_FAIL_TS, String(now));
+    if (count >= 5) {
+      const lockUntil = now + 10 * 60 * 1000;
+      localStorage.setItem(GK_LOCK_KEY, String(lockUntil));
+    }
+  }
 
   function showToast(message) {
     elements.toast.textContent = message;
@@ -83,9 +111,18 @@
       showToast("Missing wid");
       return;
     }
+    if (!otpVerified) {
+      showToast("Verify Google Auth first");
+      return;
+    }
     const gk = elements.gkInput.value.trim();
+    if (isLocked()) {
+      showToast("GlobalKey locked. Try later.");
+      return;
+    }
     if (!isValidGlobalKey(gk)) {
       showToast("GlobalKey format invalid");
+      recordFailure();
       return;
     }
     if (!name) {
@@ -123,6 +160,27 @@
     elements.name.textContent = name || "-";
   }
   elements.confirm.addEventListener("click", submitConfirm);
+  elements.otpVerify.addEventListener("click", () => {
+    if (!name) {
+      showToast("Missing name");
+      return;
+    }
+    const code = elements.otpInput.value.trim();
+    if (!code) {
+      showToast("Enter Google Auth code");
+      return;
+    }
+    apiPost("/api/nests/config/otp/verify", { name, code }).then((res) => {
+      if (res.code !== 0) {
+        showToast(res.msg || "OTP invalid");
+        return;
+      }
+      otpVerified = true;
+      elements.gkInput.disabled = false;
+      elements.confirm.disabled = false;
+      showToast("OTP verified");
+    });
+  });
 
   if (!wid) {
     showToast("Missing wid in URL");

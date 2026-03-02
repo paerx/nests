@@ -1,13 +1,11 @@
 package main
 
 import (
+	"example.com/mod/api"
+	"example.com/mod/bin"
+	"github.com/gin-gonic/gin"
 	"log"
 	"os"
-
-	"github.com/gin-gonic/gin"
-
-	"nests/api"
-	"nests/bin"
 )
 
 func main() {
@@ -33,6 +31,17 @@ func main() {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
+	r.Use(func(c *gin.Context) {
+		if os.Getenv("NESTS_FORCE_HTTPS") == "1" {
+			if c.GetHeader("X-Forwarded-Proto") != "https" && c.Request.TLS == nil {
+				url := "https://" + c.Request.Host + c.Request.RequestURI
+				c.Redirect(301, url)
+				return
+			}
+		}
+		c.Header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+		c.Next()
+	})
 	r.Use(func(c *gin.Context) {
 		c.Header("Access-Control-Allow-Origin", "*")
 		c.Header("Access-Control-Allow-Methods", "GET,POST,OPTIONS")

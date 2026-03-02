@@ -1,13 +1,11 @@
 package api
 
 import (
+	"example.com/mod/bin"
+	"github.com/gin-gonic/gin"
 	"net"
 	"net/http"
 	"net/url"
-
-	"github.com/gin-gonic/gin"
-
-	"nests/bin"
 )
 
 type updateConfigRequest struct {
@@ -23,6 +21,11 @@ type addConfigRequest struct {
 	EValue  string `json:"e-value"`
 	Sign    string `json:"sign"`
 	KdfSalt string `json:"kdf_salt"`
+}
+
+type otpVerifyRequest struct {
+	Name string `json:"name"`
+	Code string `json:"code"`
 }
 
 type windowWriteRequest struct {
@@ -56,6 +59,7 @@ func RegisterRoutes(r *gin.Engine, store *bin.Store, checkerBase string) {
 			return
 		}
 
+		cfg.OtpSecret = ""
 		respondOK(c, cfg)
 	})
 
@@ -84,6 +88,7 @@ func RegisterRoutes(r *gin.Engine, store *bin.Store, checkerBase string) {
 			respondError(c, http.StatusBadRequest, err.Error())
 			return
 		}
+		cfg.OtpSecret = ""
 		respondOK(c, cfg)
 	})
 
@@ -103,12 +108,48 @@ func RegisterRoutes(r *gin.Engine, store *bin.Store, checkerBase string) {
 			return
 		}
 
-		cfg, err := store.AddConfigEntry(req.Name, req.EKey, req.EValue, req.Sign, req.KdfSalt, c.ClientIP())
+		cfg, otpInfo, err := store.AddConfigEntry(req.Name, req.EKey, req.EValue, req.Sign, req.KdfSalt, c.ClientIP())
 		if err != nil {
 			respondError(c, http.StatusBadRequest, err.Error())
 			return
 		}
-		respondOK(c, cfg)
+		cfg.OtpSecret = ""
+		if otpInfo != nil {
+			respondOK(c, gin.H{
+				"config":  cfg,
+				"otp_uri": otpInfo.URI,
+				"otp_qr":  otpInfo.QRBase,
+			})
+			return
+		}
+		respondOK(c, gin.H{"config": cfg})
+	})
+
+	api.POST("/config/otp/verify", func(c *gin.Context) {
+		if !store.AllowOTP(c.ClientIP()) {
+			respondError(c, http.StatusTooManyRequests, "rate limit")
+			return
+		}
+
+		var req otpVerifyRequest
+		if err := c.ShouldBindJSON(&req); err != nil {
+			respondError(c, http.StatusBadRequest, "invalid body")
+			return
+		}
+		if req.Name == "" || req.Code == "" {
+			respondError(c, http.StatusBadRequest, "name and code are required")
+			return
+		}
+		ok, err := store.VerifyOTP(req.Name, req.Code)
+		if err != nil {
+			respondError(c, http.StatusBadRequest, err.Error())
+			return
+		}
+		if !ok {
+			respondError(c, http.StatusBadRequest, "invalid code")
+			return
+		}
+		respondOK(c, gin.H{"status": "ok"})
 	})
 
 	api.GET("/server/get", func(c *gin.Context) {

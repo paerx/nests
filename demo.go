@@ -1,15 +1,15 @@
 package main
 
 import (
+	"example.com/mod/sdk"
 	"fmt"
 	"log"
-	"nests/sdk"
 	"os"
 )
 
 func main() {
 	baseURL := "http://localhost:7766"
-	name := "dev"
+	name := "test"
 	if len(os.Args) >= 2 {
 		name = os.Args[1]
 	}

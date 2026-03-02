@@ -426,6 +426,21 @@ body {
   color: rgba(244, 246, 251, 0.75);
 }
 
+.otp-qr {
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px;
+}
+
+.otp-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
 .modal-hint {
   margin-top: 10px;
   font-size: 12px;
@@ -629,7 +644,24 @@ body {
   width: 100%;
 }
 
+.checker-otp {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
 .checker-form input {
+  flex: 1;
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0 12px;
+  color: var(--text);
+}
+
+.checker-otp input {
   flex: 1;
   height: 44px;
   border-radius: 12px;
