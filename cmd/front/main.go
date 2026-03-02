@@ -12,7 +12,12 @@ func main() {
 	r.Use(gin.Logger(), gin.Recovery())
 
 	r.Use(func(c *gin.Context) {
-		c.Header("Content-Security-Policy", "default-src 'self'; script-src 'self'; connect-src 'self' http://localhost:7766; img-src 'self' data:; style-src 'self';")
+		apiBase := os.Getenv("NESTS_API_BASE")
+		if apiBase == "" {
+			apiBase = "http://localhost:7766"
+		}
+		csp := "default-src 'self'; script-src 'self'; connect-src 'self' " + apiBase + "; img-src 'self' data:; style-src 'self';"
+		c.Header("Content-Security-Policy", csp)
 		c.Next()
 	})
 
